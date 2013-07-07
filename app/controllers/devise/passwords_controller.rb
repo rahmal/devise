@@ -11,9 +11,9 @@ class Devise::PasswordsController < DeviseController
   # POST /resource/password
   def create
     self.resource = resource_class.send_reset_password_instructions(resource_params)
-
+    location = new_session_path(resource_name) 
     if successfully_sent?(resource)
-      respond_with({}, :location => after_sending_reset_password_instructions_path_for(resource_name))
+      respond_with({}, :location => location)
     else
       respond_with(resource)
     end
